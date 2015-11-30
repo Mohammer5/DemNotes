@@ -1,14 +1,24 @@
 var DemNotes = React.createClass({
-  displayName: 'DemNotes',
+  displayName: 'dem-notes',
 
   /**
   *
   * Generate new Node
   *
   **/
-  newNote: function() {
-    
-  }
+  newNote: function(event) {
+    var notes;
+    notes = Notes.addNote({
+      x: getCoordinate("x", event),
+      y: getCoordinate("y", event),
+      title: "",
+      content: ""
+    });
+
+    this.setState({
+      notes: notes
+    });
+  },
   
   getInitialState: function() {
     return {
@@ -17,9 +27,18 @@ var DemNotes = React.createClass({
   },
 
   componentDidMount: function() {
-    var $this = $(ReactDOM.findDOMNode(this));
+    var self, $this;
 
-    $this.on('click', $.Proxy(this.newNote, this, $this));
+    self = this;
+    $this = $(ReactDOM.findDOMNode(this));
+
+    $this.on('click', function(e) {
+      self.newNote.call(self, e);
+    });
+    
+    this.setState({
+      notes: Notes.getNotes()
+    });
   },
 
   render: function() {
@@ -27,7 +46,7 @@ var DemNotes = React.createClass({
 
     notes = [];
     for (var i = 0, len = this.state.notes.length; i < len; ++i) {
-      document.createElement(Note, {key: i, this.state.notes[i]});
+      notes.push(React.createElement(Note, {key: i, id: i, data: this.state.notes[i]}));
     }
 
     return React.createElement('div', {className: 'demnotes'}, notes);
