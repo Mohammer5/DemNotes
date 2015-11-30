@@ -1,0 +1,24 @@
+{
+  "name": "demnotes",
+  "version": "0.1.0",
+  "description": "A notehandler replacing the newtab window",
+  "main": "js/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "DemNotes",
+    "News",
+    "Tab",
+    "Notes",
+    "Notehandler"
+  ],
+  "author": "Jan-Gerke Salomon",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^2.1.4",
+    "react-addons": "^0.9.0",
+    "react-dom": "^0.14.3",
+    "babel": "^5.8.25"
+  }
+}
