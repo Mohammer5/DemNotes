@@ -7,3 +7,6 @@ globals.remove = function(arr, from, to) {
   arr.length = from < 0 ? arr.length + from : from;
   return arr.push.apply(arr, rest);
 };
+globals.exists = function(value) {
+  return typeof value !== 'undefined';
+}
