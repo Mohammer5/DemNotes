@@ -1,4 +1,4 @@
-ReactDOM.render(
+var App = ReactDOM.render(
   React.createElement(DemNotes, null),
   document.getElementById('app')
 );
