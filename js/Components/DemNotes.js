@@ -7,6 +7,7 @@ var DemNotes = React.createClass({
   *
   **/
   newNote: function(event) {
+    console.log(event);
     if (!$(event.target).is('.demnotes') || !this.state.newNoteEnabled) return;
     var notes;
     notes = Notes.addNote({
@@ -78,16 +79,21 @@ var DemNotes = React.createClass({
   },
 
   setBackground: function() {
-    this.refs.container.style.background = 'url(img/unsplash/unsplash' + (Math.random() * 20 | 0) + ".jpg) left top / cover";
+    this.refs.container.style.background = 'url(img/unsplash/unsplash' + (Math.random() * 20 + 1 | 0) + ".jpg) left top / cover";
   },
 
   componentDidMount: function() {
-    var self, $this;
+    var self, $this, hammer;
 
     self = this;
-    $this = $(ReactDOM.findDOMNode(this));
+    $this = $(this.refs.container);
 
-    $this.on('click', function(e) { self.newNote.call(self, e); });
+    // $this.on('click', function(e) { self.newNote.call(self, e); });
+    hammer = new Hammer.Manager(this.refs.container);
+    hammer.add(new Hammer.Tap({event: 'doubletap', taps: 2}));
+    hammer.on('doubletap', function(e) { self.newNote.call(self, e); });
+    console.log(hammer);
+
     $this.on('click', '.toggle-new-note', function(e) { self.toggleNewNote.call(self, e); });
     
     this.setNotesState(Notes.getNotes());
