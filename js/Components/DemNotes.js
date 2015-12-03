@@ -7,7 +7,6 @@ var DemNotes = React.createClass({
   *
   **/
   newNote: function(event) {
-    console.log(event);
     if (!$(event.target).is('.demnotes') || !this.state.newNoteEnabled) return;
     var notes;
     notes = Notes.addNote({
@@ -92,7 +91,6 @@ var DemNotes = React.createClass({
     hammer = new Hammer.Manager(this.refs.container);
     hammer.add(new Hammer.Tap({event: 'doubletap', taps: 2}));
     hammer.on('doubletap', function(e) { self.newNote.call(self, e); });
-    console.log(hammer);
 
     $this.on('click', '.toggle-new-note', function(e) { self.toggleNewNote.call(self, e); });
     
