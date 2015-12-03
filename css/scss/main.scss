@@ -56,5 +56,110 @@ $background: white;
   left: 0;
   width: 100%;
   height: 100%;
-  background: black;
+  background: $background;
+  user-select: none;
+
+  .toggle-new-note {
+    @include squareButton;
+    position: fixed;
+    right: 40px;
+    top: 40px;
+
+    &.nn-disabled {
+      @extend .fa-power-off;
+    }
+  }
+}
+
+/**
+*
+* Notes View
+*
+**/
+.dn {
+  &-note {
+    @extend .default-box-shadow;
+    padding: 20px;
+    background: #333;
+    position: absolute !important;
+    padding-top: 28px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-item: stretch;
+    align-content: stretch;
+    border-radius: 4px;
+    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.4);
+
+    &.being-dragged {
+      z-index: 1;
+    }
+
+    input, textarea {
+      outline: 0;
+    }
+
+    textarea {
+      cursor: pointer;
+      &:focus {
+        cursor: text;
+      }
+    }
+  
+    .ps-scrollbar-y-rail {
+      opacity: 0.5 !important;
+    }
+  }
+  
+  &-headline {
+    font-size: 20px;
+    line-height: 28px;
+    color: white;
+    background: rgba(0,0,0,0);
+    display: block;
+    border: 0;
+    word-break: break-all;
+    resize: none;
+    box-sizing: border-box;
+    border-bottom: 1px solid #f2f2f2;
+  }
+
+  &-content {
+    display: block;
+    background: rgba(0,0,0,0);
+    margin: 10px 0 0 !important;
+    flex: 1;
+    height: 100%;
+    position: relative;
+    box-sizing: border-box;
+    border: 1px solid rgba(0,0,0,0);
+    transition: border-color .2s ease-out;
+    padding: 10px 5px;
+
+    textarea {
+      color: white;
+      resize: none;
+      border: 0;
+      background: inherit;
+      width: 100%;
+      height: 100%;
+    }
+
+    &:hover {
+      border-color: rgba(80,80,80,1);
+    }
+  }
+
+  &-delete {
+    @extend .fa;
+    @extend .fa-times;
+    @include squareButton(20, .7);
+
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    background: #888;
+    border-radius: 1px;
+  }
 }
