@@ -77,21 +77,21 @@ var DemNotes = React.createClass({
     });
   },
 
+  setBackground: function() {
+    this.refs.container.style.background = 'url(img/unsplash/unsplash' + (Math.random() * 20 | 0) + ".jpg) left top / cover";
+  },
+
   componentDidMount: function() {
     var self, $this;
 
     self = this;
     $this = $(ReactDOM.findDOMNode(this));
 
-    $this.on('click', function(e) {
-      self.newNote.call(self, e);
-    });
-
-    $this.on('click', '.toggle-new-note', function(e) {
-      self.toggleNewNote.call(self, e);
-    });
+    $this.on('click', function(e) { self.newNote.call(self, e); });
+    $this.on('click', '.toggle-new-note', function(e) { self.toggleNewNote.call(self, e); });
     
     this.setNotesState(Notes.getNotes());
+    this.setBackground();
   },
 
   render: function() {
@@ -117,6 +117,7 @@ var DemNotes = React.createClass({
     });
     return React.createElement('div', {ref: 'container', className: 'demnotes'}, 
       React.createElement('i', {ref: 'toggleNewNote', className: className}),
+      React.createElement('i', {ref: 'toggleBackground', className: 'refresh-background', onClick: this.setBackground}),
       notes
     );
   }

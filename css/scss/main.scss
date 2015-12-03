@@ -62,8 +62,24 @@ $background: white;
   .toggle-new-note {
     @include squareButton;
     position: fixed;
-    right: 40px;
-    top: 40px;
+    right: 20px;
+    top: 20px;
+    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.4);
+
+    &.nn-disabled {
+      @extend .fa-power-off;
+    }
+  }
+
+  .refresh-background {
+    @extend .fa;
+    @extend .fa-refresh;
+
+    @include squareButton;
+    position: fixed;
+    right: 20px;
+    top: 80px;
+    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.4);
 
     &.nn-disabled {
       @extend .fa-power-off;
