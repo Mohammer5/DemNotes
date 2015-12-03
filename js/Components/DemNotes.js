@@ -16,6 +16,8 @@ var DemNotes = React.createClass({
       content: "",
       width: 400,
       height: 200,
+      sWidth: 200,
+      sHeight: 20,
       zIndex: this.state.curZIndex + 1,
       size: false
     });
@@ -24,8 +26,8 @@ var DemNotes = React.createClass({
     this.setNotesState(notes);
   },
 
-  updateNote: function(id, updates) {
-    this.setNotesState(Notes.updateNote(id, updates));
+  updateNote: function(id, updates, callback) {
+    this.setNotesState(Notes.updateNote(id, updates), callback);
   },
 
   removeNote: function(id) {
@@ -61,10 +63,10 @@ var DemNotes = React.createClass({
     };
   },
 
-  setNotesState: function(notes) {
+  setNotesState: function(notes, callback) {
     this.setState({
       notes: notes
-    });
+    }, callback);
   },
 
   toggleNewNote: function(e) {
@@ -72,13 +74,6 @@ var DemNotes = React.createClass({
       newNoteEnabled: !this.state.newNoteEnabled
     }, function() {
       localStorage.setItem('newNoteEnabled', this.state.newNoteEnabled);
-    });
-  },
-
-  switchSize: function(id, smallSize) {
-    return;
-    this.setState({
-      size: !smallSize
     });
   },
 
