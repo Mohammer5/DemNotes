@@ -7,23 +7,79 @@ var DemNotes = React.createClass({
   *
   **/
   newNote: function(event) {
+    if (!$(event.target).is('.demnotes') || !this.state.newNoteEnabled) return;
     var notes;
     notes = Notes.addNote({
       x: getCoordinate("x", event),
       y: getCoordinate("y", event),
-      title: "",
-      content: ""
+      headline: "",
+      content: "",
+      width: 400,
+      height: 200,
+      zIndex: this.state.curZIndex + 1,
+      size: false
     });
 
+    this.setNewZIndex();
+    this.setNotesState(notes);
+  },
+
+  updateNote: function(id, updates) {
+    this.setNotesState(Notes.updateNote(id, updates));
+  },
+
+  removeNote: function(id) {
+    this.setNotesState(Notes.removeNote(id));
+    if (!Notes.length) {
+      this.setState({
+        curZIndex: 0
+      });
+    }
+  },
+
+  setNewZIndex: function() {
+    this.setState({
+      curZIndex: this.state.curZIndex + 1
+    }, function() {
+      localStorage.setItem("curZIndex", this.state.curZIndex);
+    })
+  },
+
+  updateNoteZIndex: function(id, oldZIndex) {
+    this.updateNote(id, {zIndex: this.state.curZIndex + 1});
+    this.setNewZIndex();
+  },
+  
+  getInitialState: function() {
+    var curZIndex;
+
+    curZIndex = localStorage.curZIndex ? parseInt(localStorage.curZIndex) : Notes.length;
+    return {
+      notes: [],
+      newNoteEnabled: (typeof localStorage.newNoteEnabled !== 'undefined' && localStorage.newNoteEnabled === "false") ? false : true,
+      curZIndex: curZIndex
+    };
+  },
+
+  setNotesState: function(notes) {
     this.setState({
       notes: notes
     });
   },
-  
-  getInitialState: function() {
-    return {
-      notes: []
-    };
+
+  toggleNewNote: function(e) {
+    this.setState({
+      newNoteEnabled: !this.state.newNoteEnabled
+    }, function() {
+      localStorage.setItem('newNoteEnabled', this.state.newNoteEnabled);
+    });
+  },
+
+  switchSize: function(id, smallSize) {
+    return;
+    this.setState({
+      size: !smallSize
+    });
   },
 
   componentDidMount: function() {
@@ -35,20 +91,38 @@ var DemNotes = React.createClass({
     $this.on('click', function(e) {
       self.newNote.call(self, e);
     });
-    
-    this.setState({
-      notes: Notes.getNotes()
+
+    $this.on('click', '.toggle-new-note', function(e) {
+      self.toggleNewNote.call(self, e);
     });
+    
+    this.setNotesState(Notes.getNotes());
   },
 
   render: function() {
-    var notes;
+    var notes, className;
 
     notes = [];
     for (var i = 0, len = this.state.notes.length; i < len; ++i) {
-      notes.push(React.createElement(Note, {key: i, id: i, data: this.state.notes[i]}));
+      notes.push(React.createElement(Note, {
+        key: i, 
+        id: i, 
+        data: this.state.notes[i], 
+        updateNote: this.updateNote,
+        deleteNote: this.removeNote,
+        updateNoteZIndex: this.updateNoteZIndex
+      }));
     }
 
-    return React.createElement('div', {className: 'demnotes'}, notes);
+    className = classNames({ 
+      'toggle-new-note': true,
+      'fa': true,
+      'fa-sticky-note': true,
+      'nn-disabled': !this.state.newNoteEnabled,
+    });
+    return React.createElement('div', {ref: 'container', className: 'demnotes'}, 
+      React.createElement('i', {ref: 'toggleNewNote', className: className}),
+      notes
+    );
   }
 });

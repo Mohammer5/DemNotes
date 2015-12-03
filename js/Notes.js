@@ -1,7 +1,18 @@
 var Notes = (function() {
-  var _N = function() {};
+  var _N = function() {
+    self = this;
+    Object.defineProperty(this, 'length', {
+      get: function() {
+        return self._notes.length;
+      },
+      set: function(value) {
+        undefined;
+      }
+    })
+  };
 
   _N.prototype._notes = [];
+  _N.prototype.length = 0;
 
   _N.prototype.init = function() {
     if (!localStorage['demnotes']) {
@@ -17,13 +28,13 @@ var Notes = (function() {
   }
 
   _N.prototype._save = function(data) {
-    localStorage.demnotes = JSON.stringify(data);
+    this._notes = data;
+    localStorage.demnotes = JSON.stringify(data) || [];
   }
 
   _N.prototype.addNote = function(noteData) {
     var notes = this._read();
     notes.push(noteData);
-    this._notes = notes;
     this._save(notes);
 
     return this.getNotes();
@@ -31,7 +42,24 @@ var Notes = (function() {
 
   _N.prototype.removeNote = function(id) {
     var notes = this._read();
-    notes = globals.remove(notes, id);
+    globals.remove(notes, id);
+    this._save(notes);
+
+    return this.getNotes();
+  }
+
+  _N.prototype.updateNote = function(id, updates) {
+    var notes;
+    notes = this._read();
+
+    if (notes[id]) {
+      for (var i in updates) {
+        if (typeof notes[id][i] !== undefined) {
+          notes[id][i] = updates[i];
+        }
+      }
+    }
+
     this._save(notes);
 
     return this.getNotes();
