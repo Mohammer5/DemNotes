@@ -1,6 +1,7 @@
 {
   "type" : "apps",
-  "data" : [
-    "Settings"
-  ]
+  "data" : {
+    "Notes"    : true,
+    "Settings" : false
+  }
 }

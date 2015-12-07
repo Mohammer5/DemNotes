@@ -11,10 +11,7 @@
     "default_title": "DemNotes"
   },
 
-  "permissions": [
-    "activeTab",
-    "https://ajax.googleapis.com/"
-  ],
+  "permissions": [ "storage" ],
 
   "chrome_url_overrides" : {
     "newtab": "index.html"
