@@ -10,18 +10,23 @@
 </head>
 <body>
 
-  <div id="app"></div>
-  
-  
   <!-- libs -->
-  <link rel="import" href="js/libs.html">
+  <link rel="import" href="app/libs.html">
 
-  <!-- core apps -->
-  <link rel="import" href="Core/Core/index.html">
-  <link rel="import" href="Core/Helper/index.html">
-
-  <!-- apps -->
+  <!-- Plugins -->  
   <link rel="import" href="Plugins/Settings/index.html">
   <link rel="import" href="Plugins/Notes/index.html">
+
+  <!-- Enable / Disable Plugins -->
+  <script>
+    var plugins = [
+      "Settings",
+      "Notes"
+    ];
+  </script>
+
+  <!-- app -->
+  <script src="app/app.js"></script>
+  
 </body>
 </html>
