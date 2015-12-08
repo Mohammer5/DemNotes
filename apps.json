@@ -1,0 +1,7 @@
+{
+  "type" : "apps",
+  "data" : {
+    "Notes"    : true,
+    "Settings" : false
+  }
+}
