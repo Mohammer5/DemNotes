@@ -31,6 +31,7 @@
     "lodash": "~3.10.1",
     "perfect-scrollbar": "~0.6.7",
     "jquery-ui": "jqueryui#~1.11.4",
-    "classnames": "~2.2.0"
+    "classnames": "~2.2.0",
+    "angular": "~1.4.8"
   }
 }
