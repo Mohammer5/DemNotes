@@ -1,4 +1,4 @@
-import {StorageService} from './services/storageService';
+// import {StorageService} from './services/storageService';
 
 var app;
 {
@@ -11,4 +11,4 @@ var app;
   app = angular.module("DemNotes", _p);
 }
 
-app.factory('StorageService', StorageService);
+// app.factory('StorageService', StorageService);
