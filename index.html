@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="DemNotes">
 <head>
   <meta charset="UTF-8">
   <title>New Tab</title>
@@ -19,14 +19,14 @@
 
   <!-- Enable / Disable Plugins -->
   <script>
-    var plugins = [
-      "Settings",
-      "Notes"
-    ];
+    var plugins = {
+      "Settings" : true,
+      "Notes"    : true
+    };
   </script>
 
   <!-- app -->
-  <script src="app/app.js"></script>
-  
+  <script src="app/dist/index.js"></script>
+
 </body>
 </html>
