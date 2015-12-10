@@ -8,7 +8,7 @@ var Notes = angular.module('Notes', []);
 * Services
 *
 **/
-Notes.factory('NotesService', NotesService);
+register('Notes').factory('NotesService', NotesService);
 
 /**
 *
